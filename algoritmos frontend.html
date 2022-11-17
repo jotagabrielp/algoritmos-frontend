@@ -1,0 +1,81 @@
+<body>
+    <button onClick="ehPrimo()">Primo</button>
+    <button onClick="somatorio()">Somatorio</button>
+    <button onClick="fibo()">Fibbonacci</button>
+    <button onClick="mdc()">mdc</button>
+    <button onClick="realQuicksort()">quicksort</button>
+</body>
+<script>
+  const ehPrimo = (num = Number(prompt())) => {
+  if (isNaN(num)) {
+    alert("Numero invalido");
+    return;
+  }
+  let msg = "eh primo";
+  for (let i = 2; i < num; i++) {
+    msg = num % i === 0 ? "nao eh primo" : msg;
+  }
+  alert(msg);
+}
+
+const somatorio = (nums = prompt("Insira os números separados por espaço").split(" ").map(Number)) => {
+  if (nums.some((n) => isNaN(n))) {
+    alert("Numeros invalidos");
+    return;
+  }
+  const result = nums.map(Number).reduce((a, b) => (a + b));
+  alert(result);
+}
+
+const fibo = (n =  Number(prompt())) => {
+  const fibGenerator = function*() {
+    var current = 0, next = 1;
+    while (true) {
+      [next, current] = [next + current, next];
+      yield current;
+    }
+  }
+  const fibGen = fibGenerator();
+  let msg = "";
+  [...Array(n)].forEach(() => msg += fibGen.next().value + " ");
+  alert(msg);
+}
+
+const mdc = (a = Number(prompt()), b = Number(prompt())) => {
+  if (isNaN(a) && isNaN(b)) {
+    alert("numeros inválidos");
+    return;
+  }
+  let d = Math.min(a = Number(prompt()), b = Number(prompt()));
+  while (d > 1) {
+    if (a % d === 0 && b % d === 0) {
+      break;
+    }
+    d--;
+  }
+  alert(d);
+}
+
+const realQuicksort = (array = prompt("Insira os números separados por espaço").split(" ").map(Number)) => {
+  msg = "";
+  array.sort((a, b) => a - b).forEach(number => msg += number + " ");
+  alert(msg);
+}
+
+const quicksort = (array) => {
+  if (array && array.length >= 1) {
+    let pivot = array.shift();
+    let [menor, maior] = [[], []];
+    array.forEach((e) => {
+      if (e <= pivot) {
+        menor.push(e)
+      } else {
+        maior.push(e);
+      }
+    });
+    return [quicksort(menor), pivot, quicksort(maior)].flat(Infinity).filter(e => e !== undefined);
+  } else {
+    return;
+  }
+}
+</script>
